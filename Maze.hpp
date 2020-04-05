@@ -124,36 +124,29 @@ void Maze::FindPath() {
 }
 
 void Maze::Solve(int x, int y) {
+  this->path.push({x, y});
+  this->seen.push_front({x, y});
   // Our Goal
   if (x == this->finish.x && y == this->finish.y) {
-    this->path.push({x, y});
     AddPath();
     return;
   }
 
   // Our Choise
   if (this->isValidMove(x + 1, y)) {  // right
-    this->path.push({x, y});
-    this->seen.push_front({x, y});
     this->Solve(x + 1, y);
   }
   if (this->isValidMove(x, y - 1)) {  // up
-    this->path.push({x, y});
-    this->seen.push_front({x, y});
     this->Solve(x, y - 1);
   }
   if (this->isValidMove(x - 1, y)) {  // left
-    this->path.push({x, y});
-    this->seen.push_front({x, y});
     this->Solve(x - 1, y);
   }
   if (this->isValidMove(x, y + 1)) {  // down
-    this->path.push({x, y});
-    this->seen.push_front({x, y});
     this->Solve(x, y + 1);
   }
 
-  this->path.pop(); // No option so get out of my path
+  this->path.pop();  // No option so get out of my path
 }
 
 bool Maze::SeenContain(Point2D p) {
