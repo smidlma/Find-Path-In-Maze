@@ -5,7 +5,11 @@
 #include <stack>
 
 using namespace std;
-
+/**
+ * Just struct to represent point
+ * @param x number
+ * @param y number
+ */
 struct Point2D {
   int x;
   int y;
@@ -13,6 +17,9 @@ struct Point2D {
   bool operator==(const Point2D& a) const { return (x == a.x && y == a.y); }
 };
 
+/**
+ * The Maze class represents a textfile maze input
+ */
 class Maze {
  private:
   unique_ptr<char[]> maze;
@@ -23,22 +30,56 @@ class Maze {
   stack<Point2D> path;
   list<Point2D> seen;
 
+  /**
+   * Implements DFS alg
+   * @param x col possition
+   * @param y row possition
+   */
   void Solve(int x, int y);
+
+  /**
+   * Checks if p is in seen list
+   * @param p point
+   */
   bool SeenContain(Point2D p);
+
+  /**
+   * Check if next move is valid
+   * @param x col possition
+   * @param y row possition
+   */
   bool isValidMove(int x, int y);
+
+  /**
+   * Adds final path to maze
+   */
   void AddPath();
 
  public:
+  /**
+   * Contructor creates object and reads given text file
+   *
+   * @param file_path path to the textfile
+   */
   Maze(const char* file_path);
+
   ~Maze();
 
+  /**
+   * Prints out maze to the console
+   */
   void Show();
+
+  /**
+   * Starts finding the path
+   */
   void FindPath();
 };
 
 Maze::Maze(const char* file_path) {
   FILE* file = fopen(file_path, "rt");
 
+  // Get firs and second row of file with rows cols info
   fscanf(file, "%d\n", &this->rows);
   fscanf(file, "%d\n", &this->cols);
   // Allocate memory for maze matrix
@@ -47,10 +88,12 @@ Maze::Maze(const char* file_path) {
   for (int y = 0; y < this->rows; y++) {
     for (int x = 0; x < this->cols; x++) {
       fscanf(file, "%c", &this->maze[x + y * this->cols]);
+      // Remember start possition
       if (this->maze[x + y * this->cols] == '2') {
         this->start.x = x;
         this->start.y = y;
       }
+      // Remember finnish possition
       if (this->maze[x + y * this->cols] == '3') {
         this->finish.x = x;
         this->finish.y = y;
@@ -75,19 +118,20 @@ void Maze::Show() {
 }
 
 void Maze::FindPath() {
-  cout << endl << "Finded Path:" << endl;
+  cout << endl << endl;
+  // Start recursion
   this->Solve(this->start.x, this->start.y);
 }
 
 void Maze::Solve(int x, int y) {
-  // Goal
+  // Our Goal
   if (x == this->finish.x && y == this->finish.y) {
     this->path.push({x, y});
     AddPath();
     return;
   }
 
-  // Choise
+  // Our Choise
   if (this->isValidMove(x + 1, y)) {  // right
     this->path.push({x, y});
     this->seen.push_front({x, y});
@@ -109,7 +153,7 @@ void Maze::Solve(int x, int y) {
     this->Solve(x, y + 1);
   }
 
-  this->path.pop();
+  this->path.pop(); // No option so get out of my path
 }
 
 bool Maze::SeenContain(Point2D p) {
