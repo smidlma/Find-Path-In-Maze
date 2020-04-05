@@ -80,13 +80,17 @@ bool Maze::SeenContain(Point2D p) {
 }
 
 bool Maze::isValidMove(int x, int y) {
+  if (x >= this->cols || x < 0 || y >= this->rows || y < 0) {
+    return false;
+  }
+
   char elem = this->maze[x + y * this->cols];
   return ((elem == '0' || elem == '3') && !this->SeenContain({x, y}));
 }
 
 void Maze::AddPath() {
   stack<Point2D> path_copy;
-  
+
   path_copy = this->path;
   while (!path_copy.empty()) {
     Point2D p = path_copy.top();

@@ -74,5 +74,6 @@ class Maze {
    * Starts finding the path
    */
   void FindPath();
+
 };
 
