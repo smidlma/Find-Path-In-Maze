@@ -12,8 +12,8 @@ Bludiště je, vytvořeno ve čtvercové síti a je uloženo v textovém souboru
 0  odpovídá cestičce, 1 odpovídá zdi, 2 odpovídá vchodu do bludiště a 3 odpovídá východu z bludiště.
 
 ## Příklad
-Bludiste.txt
-### Input
+
+### Input:
 ```
 31
 31
@@ -49,7 +49,7 @@ Bludiste.txt
 1000000010000010000010000000003
 1111111111111111111111111111111
 ```
-### Output
+### Output:
 ````
 1111111111111111111111111111111
     001         100000100000101

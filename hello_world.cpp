@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 
-#include "Maze.hpp"
+#include "Maze.h"
 
 using namespace std;
 
