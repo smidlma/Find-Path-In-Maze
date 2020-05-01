@@ -50,7 +50,7 @@ class Maze {
   bool isValidMove(int x, int y);
 
   /**
-   * Adds final path to maze
+   * Adds final path to the maze
    */
   void AddPath();
 

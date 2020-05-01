@@ -44,7 +44,6 @@ void Maze::Show() {
 void Maze::FindPath() {
   cout << endl << endl;
   // Start recursion
-  // this->Solve(this->start.x, this->start.y);
   if (this->Solve(this->start.x, this->start.y)) {
     //printf("done\n");
     AddPath();
@@ -81,7 +80,7 @@ bool Maze::Solve(int x, int y) {
     }
   }
 
-  this->path.pop();
+  this->path.pop(); // No choise so get out of my path
   return false;
 }
 
