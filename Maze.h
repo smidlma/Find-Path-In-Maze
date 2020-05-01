@@ -29,14 +29,13 @@ class Maze {
   Point2D finish;
   stack<Point2D> path;
   list<Point2D> seen;
-
   /**
    * Implements DFS alg
    * @param x col possition
    * @param y row possition
    */
-  void Solve(int x, int y);
-
+  bool Solve(int x, int y);
+  
   /**
    * Checks if p is in seen list
    * @param p point
@@ -44,7 +43,7 @@ class Maze {
   bool SeenContain(Point2D p);
 
   /**
-   * Check if next move is valid
+   * Checks if next move is valid
    * @param x col possition
    * @param y row possition
    */
@@ -74,6 +73,4 @@ class Maze {
    * Starts finding the path
    */
   void FindPath();
-
 };
-

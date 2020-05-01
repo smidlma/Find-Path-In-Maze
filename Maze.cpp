@@ -44,33 +44,45 @@ void Maze::Show() {
 void Maze::FindPath() {
   cout << endl << endl;
   // Start recursion
-  this->Solve(this->start.x, this->start.y);
+  // this->Solve(this->start.x, this->start.y);
+  if (this->Solve(this->start.x, this->start.y)) {
+    //printf("done\n");
+    AddPath();
+  }
 }
 
-void Maze::Solve(int x, int y) {
+bool Maze::Solve(int x, int y) {
   this->path.push({x, y});
   this->seen.push_front({x, y});
   // Our Goal
   if (x == this->finish.x && y == this->finish.y) {
-    AddPath();
-    return;
+    return true;
   }
 
   // Our Choise
   if (this->isValidMove(x + 1, y)) {  // right
-    this->Solve(x + 1, y);
+    if (this->Solve(x + 1, y)) {
+      return true;
+    };
   }
   if (this->isValidMove(x, y - 1)) {  // up
-    this->Solve(x, y - 1);
+    if (this->Solve(x, y - 1)) {
+      return true;
+    }
   }
   if (this->isValidMove(x - 1, y)) {  // left
-    this->Solve(x - 1, y);
+    if (this->Solve(x - 1, y)) {
+      return true;
+    }
   }
   if (this->isValidMove(x, y + 1)) {  // down
-    this->Solve(x, y + 1);
+    if (this->Solve(x, y + 1)) {
+      return true;
+    }
   }
 
-  this->path.pop();  // No option so get out of my path
+  this->path.pop();
+  return false;
 }
 
 bool Maze::SeenContain(Point2D p) {
@@ -95,6 +107,7 @@ void Maze::AddPath() {
   while (!path_copy.empty()) {
     Point2D p = path_copy.top();
     path_copy.pop();
-    this->maze[p.x + p.y * this->cols] = ' ';
+    this->maze[p.x + p.y * this->cols] =
+        '4';  // ' '; mezera je lepsi pro ocka :)
   }
 }
