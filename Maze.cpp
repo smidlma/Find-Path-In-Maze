@@ -2,7 +2,11 @@
 
 Maze::Maze(const char* file_path) {
   FILE* file = fopen(file_path, "rt");
-
+  // test
+  if (!file) {
+    printf("Can not find the file %s !\n",file_path);
+    exit(1);
+  }
   // Get firs and second row of file with rows cols info
   fscanf(file, "%d\n", &this->rows);
   fscanf(file, "%d\n", &this->cols);
@@ -45,8 +49,10 @@ void Maze::FindPath() {
   cout << endl << endl;
   // Start recursion
   if (this->Solve(this->start.x, this->start.y)) {
-    //printf("done\n");
+    // printf("done\n");
     AddPath();
+  } else {
+    printf("Can not find the path\n");
   }
 }
 
@@ -80,7 +86,7 @@ bool Maze::Solve(int x, int y) {
     }
   }
 
-  this->path.pop(); // No choise so get out of my path
+  this->path.pop();  // No choise so get out of my path
   return false;
 }
 
@@ -107,6 +113,6 @@ void Maze::AddPath() {
     Point2D p = path_copy.top();
     path_copy.pop();
     this->maze[p.x + p.y * this->cols] =
-        '4';  // ' '; mezera je lepsi pro ocka :)
+        ' ';  // ' '; mezera je lepsi pro ocka :)
   }
 }

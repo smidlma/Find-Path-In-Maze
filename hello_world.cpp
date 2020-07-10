@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "Maze.h"
 
 using namespace std;
